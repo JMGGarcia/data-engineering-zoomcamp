@@ -6,6 +6,8 @@ To setup, I just used the provided code locally to fill up the data base.
 To load the green taxi data to the database, the only change needed was to change the pickup/dropoff variables
 from `tpep` to `lpep`. 
 
+For the Terraform stuff, I just followed the instructions of the video to setup and did the `terraform apply`
+
 ### Question 1
 
 ```
