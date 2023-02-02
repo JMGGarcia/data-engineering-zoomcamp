@@ -1,8 +1,8 @@
+import os
 from pathlib import Path
 import pandas as pd
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
-from random import randint
 
 
 @task(retries=3)
@@ -33,7 +33,13 @@ def clean(color: str, df: pd.DataFrame) -> pd.DataFrame:
 @task()
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f"data/{color}/{dataset_file}.parquet")
+    newpath = f'./data/{color}/'
+    if not os.path.exists(newpath):
+        print("creating path")
+        os.makedirs(newpath)
+    else:
+        print("path already exists")
+    path = Path(f"./data/{color}/{dataset_file}.parquet")
     df.to_parquet(path, compression="gzip")
     return path
 
